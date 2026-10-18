@@ -3,12 +3,12 @@
 # 用法：sh scripts/reset_finder_extension.sh
 set -e
 
-APP="/Applications/RightClickAssistant.app"
+APP="/Applications/右键助手.app"
 EXT_ID="devplaceholder.JW2H7X4Z.RightClickAssistant.FinderExtension"
 
 echo "1) 退出正在运行的副本…"
-pkill -f 'RightClickAssistant.app/Contents/MacOS/RightClickAssistant' 2>/dev/null || true
-pkill -f 'RightClickAssistant.app/Contents/MacOS/RightClickAssistant' 2>/dev/null || true
+pkill -f '右键助手.app/Contents/MacOS/右键助手' 2>/dev/null || true
+pkill -f '右键助手.app/Contents/MacOS/右键助手' 2>/dev/null || true
 pkill -f 'FinderExtension.appex/Contents/MacOS/FinderExtension' 2>/dev/null || true
 
 echo "2) 移除不在 /Applications 的旧注册（构建目录等）…"
@@ -32,7 +32,7 @@ pluginkit -m -A -v -p com.apple.FinderSync | grep -iE 'rightclick|右键' || ech
 echo "5) 重启 Finder 以重新加载扩展…"
 killall Finder 2>/dev/null || true
 
-echo "6) 重新打开“RightClickAssistant”…"
+echo "6) 重新打开“右键助手”…"
 open "$APP"
 
 echo "完成。若系统设置仍显示旧条目，请关闭并重新打开“系统设置”。"

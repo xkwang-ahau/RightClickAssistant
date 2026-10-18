@@ -13,7 +13,7 @@ struct ContentView: View {
                     .font(.system(size: 22))
                     .foregroundStyle(.tint)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("RightClickAssistant")
+                    Text("右键助手")
                         .font(.headline)
                     Text("在 Finder 中右键新建文档或移动文件")
                         .font(.caption)
@@ -61,7 +61,7 @@ struct ContentView: View {
             }
 
             Divider()
-            Button("退出 RightClickAssistant") {
+            Button("退出右键助手") {
                 NSApplication.shared.terminate(nil)
             }
         }

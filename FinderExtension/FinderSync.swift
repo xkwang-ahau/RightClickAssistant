@@ -34,9 +34,9 @@ final class FinderSync: FIFinderSync {
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
         guard menuKind == .contextualMenuForItems || menuKind == .contextualMenuForContainer else { return nil }
         let controller = FIFinderSyncController.default()
-        let menu = NSMenu(title: "RightClickAssistant")
-        let root = NSMenuItem(title: "RightClickAssistant", action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: "RightClickAssistant")
+        let menu = NSMenu(title: "右键助手")
+        let root = NSMenuItem(title: "右键助手", action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: "右键助手")
         root.submenu = submenu
         menu.addItem(root)
 
@@ -56,7 +56,7 @@ final class FinderSync: FIFinderSync {
             }
         }
         if !submenu.items.isEmpty { submenu.addItem(.separator()) }
-        add("打开 RightClickAssistant", request: FinderRequest(action: .open, location: nil), to: submenu)
+        add("打开右键助手", request: FinderRequest(action: .open, location: nil), to: submenu)
         return menu
     }
 

@@ -8,7 +8,7 @@ struct MyApp: App {
         MenuBarExtra {
             ContentView(model: appDelegate.model)
         } label: {
-            Label("RightClickAssistant", systemImage: "cursorarrow.click.2")
+            Label("右键助手", systemImage: "cursorarrow.click.2")
         }
         .menuBarExtraStyle(.window)
     }

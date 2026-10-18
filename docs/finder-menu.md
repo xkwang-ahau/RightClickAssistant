@@ -2,11 +2,11 @@
 
 ## 当前可试用内容
 
-Finder Sync 扩展名：**RightClickAssistant Finder Menu**。当前范围：**启动磁盘及所有已挂载磁盘的普通文件夹**，包括桌面、文稿、下载、其他工作目录及外接盘目录。磁盘挂载、卸载或重命名后自动刷新。Finder 的“最近使用”等虚拟页面不代表一个可写文件夹。
+Finder Sync 扩展名：**右键助手 Finder 菜单**。当前范围：**启动磁盘及所有已挂载磁盘的普通文件夹**，包括桌面、文稿、下载、其他工作目录及外接盘目录。磁盘挂载、卸载或重命名后自动刷新。Finder 的“最近使用”等虚拟页面不代表一个可写文件夹。
 
-- 文件夹空白处或单个文件夹右键：RightClickAssistant → 新建 Word / PowerPoint / Excel 文档…
-- 单个普通文件右键：RightClickAssistant → 移动此文件…
-- 多选或无法读取文件类型时：只提供打开 RightClickAssistant。
+- 文件夹空白处或单个文件夹右键：右键助手 → 新建 Word / PowerPoint / Excel 文档…
+- 单个普通文件右键：右键助手 → 移动此文件…
+- 多选或无法读取文件类型时：只提供打开右键助手。
 - 新建菜单在后台直接生成文档，**不再弹出主界面、也不再要求逐个文件夹授权**。默认名为“新建 Word 文档.docx”等；同名自动使用“(2)”“(3)”编号，不覆盖已有文件。
 - 移动菜单弹出目的地窗口（标题含源文件名，按钮“移动到此文件夹”，显示源路径与实际目标，选回源文件夹会被拒绝），确认后后台移动。
 - 若目的地已有同名文件，会弹出选择：**保留两者**（自动改名为“名称 (2)”等）、**替换**（原子替换同名文件）、**取消**。默认“绝不覆盖”，只有选择“替换”才会覆盖。
@@ -26,8 +26,8 @@ Finder Sync 扩展名：**RightClickAssistant Finder Menu**。当前范围：**�
 ## 启用与体验
 
 1. 在 Xcode 打开 `RightClickAssistant.xcodeproj`，运行 `RightClickAssistant` / My Mac。应用构建会自动构建并嵌入 FinderExtension。
-2. App 的“Finder 右键菜单”区显示扩展启用状态。未启用时点击“管理 Finder 扩展…”，在系统界面开启“RightClickAssistant Finder Menu”。如果系统页面变化，可在系统设置搜索“扩展”，进入 Finder 扩展管理。
-3. 在 Finder 打开任意普通文件夹（例如下载、文稿或外接盘上的工作目录），空白处右键，找“RightClickAssistant”。本轮命令行已注册并设置 use；若状态尚未刷新，关闭该 Finder 窗口后再打开。
+2. App 的“Finder 右键菜单”区显示扩展启用状态。未启用时点击“管理 Finder 扩展…”，在系统界面开启“右键助手 Finder 菜单”。如果系统页面变化，可在系统设置搜索“扩展”，进入 Finder 扩展管理。
+3. 在 Finder 打开任意普通文件夹（例如下载、文稿或外接盘上的工作目录），空白处右键，找“右键助手”。本轮命令行已注册并设置 use；若状态尚未刷新，关闭该 Finder 窗口后再打开。
 4. 点击新建 Word 文档…，首次授权窗口中确认创建目录后应自动生成“新建 Word 文档.docx”，无需再点创建按钮。再次从同一目录点击菜单，应直接创建带编号的新文件。可在 Finder 重命名生成文件。
 5. 在设置窗口授权一个父目录，再到其两个不同子文件夹右键创建，检查不用重复授权且文件各自出现在对应子目录。重启 App 后同样检查。
 6. 在任意普通文件夹选择一个专用测试文件，右键 → 移动此文件…；在授权窗口选择该文件，接着选择同一磁盘的目的地，确认后自动移动。
@@ -40,7 +40,7 @@ Finder Sync 扩展名：**RightClickAssistant Finder Menu**。当前范围：**�
 - 目的地窗口独立于目录授权窗口：标题含源文件名，按钮“移动到此文件夹”，说明显示源路径并提示侧栏“文稿”，窗内附件实时显示实际目标；选回源文件夹会在确认前被拒绝。
 - 源文件位于已授权创建根内时，直接复用该授权包围移动，跳过源文件授权面板。
 - 记录私有的源/目标路径与成功/失败阶段，便于后续诊断（不公开完整路径）。
-- 最终 **100 项测试通过**，无失败/跳过/runtimeWarnings；已在 Xcode 副本重建并重启运行。真实系统面板点击仍待人工验收。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-movefix-tests.xcresult`。
+- 最终 **100 项测试通过**，无失败/跳过/runtimeWarnings；已在 Xcode 副本重建并重启运行。真实系统面板点击仍待人工验收。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-movefix-tests.xcresult`。
 
 有多个开发副本时，确保只运行当前构建。菜单点选会明确打开包含该扩展的 App，避免 URL scheme 打开其他副本。正式安装和分发还需要稳定安装位置与开发者签名配置。
 
@@ -56,17 +56,17 @@ Finder Sync 扩展名：**RightClickAssistant Finder Menu**。当前范围：**�
 
 当前普通 App：
 
-`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m5-derived/Build/Products/Debug/RightClickAssistant.app`
+`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m5-derived/Build/Products/Debug/右键助手.app`
 
 测试结果：
 
-`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m5-final-tests.xcresult`
+`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m5-final-tests.xcresult`
 
 ### 菜单自动新建修正（2026-10-12）
 
 根据用户反馈，将原先“准备输入后手动创建”的流程改为菜单自动创建。已验证同目录授权复用、不同目录授权、取消保留、排队/授权期间互斥、失败提示、关闭取消，以及真实三种文档的递增命名与并发无覆盖。
 
-修正后 **78 项测试通过，0 失败、0 跳过、无 runtimeWarnings**，普通 App 已在上述相同位置重新构建、注册并打开，深度签名验证通过。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-autocreate-tests.xcresult`。真实 Finder 点选后的系统授权与输出画面仍待验收。
+修正后 **78 项测试通过，0 失败、0 跳过、无 runtimeWarnings**，普通 App 已在上述相同位置重新构建、注册并打开，深度签名验证通过。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-autocreate-tests.xcresult`。真实 Finder 点选后的系统授权与输出画面仍待验收。
 
 ### 菜单点击交接修正与真实输出（2026-10-12）
 
@@ -74,11 +74,11 @@ Finder Sync 扩展名：**RightClickAssistant Finder Menu**。当前范围：**�
 
 已重建并启动用户实际使用的 Xcode 副本：
 
-`/Users/xkwang/Library/Developer/Xcode/DerivedData/RightClickAssistant-caldmekacyazmsdfowugkojxwgms/Build/Products/Debug/RightClickAssistant.app`
+`/Users/xkwang/Library/Developer/Xcode/DerivedData/rightchick-caldmekacyazmsdfowugkojxwgms/Build/Products/Debug/右键助手.app`
 
 **真实菜单新建已走通**：日志记录扩展收到 tag 2、App 打开成功、SwiftUI 接收 `powerPoint` 请求；桌面实际生成“新建 PowerPoint 文档.pptx”，SHA-256 与合法空白模板一致。已有桌面授权，因此没有弹授权窗口是正常行为。另通过系统 URL 验证生成“新建 Word 文档.docx”。生成文档保留供检查。
 
-最终 **81 项测试通过**，无失败/跳过/runtimeWarnings，构建和深度签名验证通过。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-menu-tag-tests.xcresult`。首次无授权目录的真实面板与移动菜单流程仍需验收。
+最终 **81 项测试通过**，无失败/跳过/runtimeWarnings，构建和深度签名验证通过。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-menu-tag-tests.xcresult`。首次无授权目录的真实面板与移动菜单流程仍需验收。
 
 ## 若没有出现
 
@@ -104,11 +104,11 @@ pluginkit -e ignore -i devplaceholder.JW2H7X4Z.RightClickAssistant.FinderExtensi
 - **90 项测试全部通过**，0 失败、0 跳过、无 runtimeWarnings。验证路径组件边界、同名前缀、跨卷、取消、清除根、重启恢复根，以及真实临时目录中父授权下创建三种 Office 文件。所有既有同名保护与移动测试通过。
 - 独立 Debug 应用构建与深度签名检查通过，无编译警告；已重建 Xcode 常用副本，重新注册并启用扩展，重启 Finder 后主 App 和扩展均从该副本运行。
 - 实际扩展日志记录 `Finder menu scope updated, volume roots: 11`，证实本机新范围已注册。已打开“下载”文件夹供试用；桌面外菜单画面、外接盘插拔及第三方云盘尚未实际点选验收。
-- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-allfolders-final-tests.xcresult`。
-- 当前运行 App：`/Users/xkwang/Library/Developer/Xcode/DerivedData/RightClickAssistant-caldmekacyazmsdfowugkojxwgms/Build/Products/Debug/RightClickAssistant.app`。
+- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-allfolders-final-tests.xcresult`。
+- 当前运行 App：`/Users/xkwang/Library/Developer/Xcode/DerivedData/rightchick-caldmekacyazmsdfowugkojxwgms/Build/Products/Debug/右键助手.app`。
 
 ## 精简设置窗口（2026-10-16）
 
 主窗口只保留扩展启用状态、文件夹授权（选择/更换/清除），以及按需显示的最近结果和“在 Finder 中显示”。新建类型、名称输入、预览、源文件及移动按钮表单已移除。文件移动也能由菜单和系统选择窗口完整完成。关闭设置窗口不会取消已发起的菜单文件操作。
 
-最终 **96 项测试通过**，0 失败、0 跳过、无 runtimeWarnings；包括菜单移动成功、两个选择窗口取消、重复/嵌套请求、失败、排队取消、实际临时文件无按钮移动和结果链接更新。构建与深度签名通过，已打开新版 App。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-compact-final-tests.xcresult`。紧凑布局与真实 NSOpenPanel 移动流程仍需人工体验验收。
+最终 **96 项测试通过**，0 失败、0 跳过、无 runtimeWarnings；包括菜单移动成功、两个选择窗口取消、重复/嵌套请求、失败、排队取消、实际临时文件无按钮移动和结果链接更新。构建与深度签名通过，已打开新版 App。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-compact-final-tests.xcresult`。紧凑布局与真实 NSOpenPanel 移动流程仍需人工体验验收。

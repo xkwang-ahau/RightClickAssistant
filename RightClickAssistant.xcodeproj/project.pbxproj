@@ -40,7 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		000000000000000000000120 /* RightClickAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RightClickAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000120 /* 右键助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "右键助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000220 /* RightClickAssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RightClickAssistantTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000320 /* FinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -124,7 +124,7 @@
 		000000000000000000000020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				000000000000000000000120 /* RightClickAssistant.app */,
+				000000000000000000000120 /* 右键助手.app */,
 				000000000000000000000220 /* RightClickAssistantTests.xctest */,
 				000000000000000000000320 /* FinderExtension.appex */,
 			);
@@ -154,7 +154,7 @@
 			);
 			name = RightClickAssistant;
 			productName = MyApp;
-			productReference = 000000000000000000000120 /* RightClickAssistant.app */;
+			productReference = 000000000000000000000120 /* 右键助手.app */;
 			productType = "com.apple.product-type.application";
 		};
 		000000000000000200000000 /* RightClickAssistantTests */ = {
@@ -432,7 +432,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.JW2H7X4Z.RightClickAssistant";
 				PRODUCT_MODULE_NAME = RightClickAssistant;
-				PRODUCT_NAME = RightClickAssistant;
+				PRODUCT_NAME = "右键助手";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -458,7 +458,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.JW2H7X4Z.RightClickAssistant";
 				PRODUCT_MODULE_NAME = RightClickAssistant;
-				PRODUCT_NAME = RightClickAssistant;
+				PRODUCT_NAME = "右键助手";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -487,7 +487,7 @@
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RightClickAssistant.app/Contents/MacOS/RightClickAssistant";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/右键助手.app/Contents/MacOS/右键助手";
 			};
 			name = Debug;
 		};
@@ -507,7 +507,7 @@
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RightClickAssistant.app/Contents/MacOS/RightClickAssistant";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/右键助手.app/Contents/MacOS/右键助手";
 			};
 			name = Release;
 		};

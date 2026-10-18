@@ -161,7 +161,7 @@ M4 新增 FolderPreference.swift、FolderBookmarkStore.swift、RightClickAssista
 
 在 Xcode 打开 RightClickAssistant.xcodeproj，选择 RightClickAssistant scheme、My Mac，点击 Run（Command-R）。
 
-1. 检查出现“RightClickAssistant”窗口。
+1. 检查出现“右键助手”窗口。
 2. 输入“会议记录”，切换 Word / PowerPoint / Excel，查看 `.docx/.pptx/.xlsx` 名称预览。
 3. 分别选择创建位置和移动目的地，检查它们独立更新。
 4. 已经选好目录后点“更换”，再取消，检查原选择保留。
@@ -193,6 +193,6 @@ M3 独立 Debug 沙盒 App 编译成功；45 个 XCTest 全部通过（22 项创
 - 最终 60 项 XCTest 通过，0 失败、0 跳过、无 runtimeWarnings：原有 45 项回归、10 项书签服务测试、5 项目录状态测试。
 - 真实临时目录验证安全书签往返、删除后失效、普通文件拒绝、恢复后的三个 Office 文件创建及移动。隔离 UserDefaults suite 与系统边界替身覆盖损坏数据、独立清除、stale 更新、更新失败、保存失败和安全访问配对；已有互斥测试增加操作期间禁止清除的断言。
 - 未出现 Swift 源码编译警告；项目与 entitlements 格式检查通过，已按原有四空格和补丁逐文件复核修改。
-- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m4-final-tests.xcresult`。
-- 已在独立 DerivedData 构建普通 App，产物：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m4-app-derived/Build/Products/Debug/RightClickAssistant.app`，无构建警告，签名权限复核通过。
+- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m4-final-tests.xcresult`。
+- 已在独立 DerivedData 构建普通 App，产物：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m4-app-derived/Build/Products/Debug/右键助手.app`，无构建警告，签名权限复核通过。
 - 本会话没有桌面操作工具。测试宿主中的临时目录验证不等同于真实 NSOpenPanel 外部目录授权，普通 App 退出/重启后外部目录 IO 尚未人工验收，请按上面的第 9–11 步检查。
