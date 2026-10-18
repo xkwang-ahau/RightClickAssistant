@@ -1,0 +1,35 @@
+# AI agent scaffolding — kept locally, never published
+.agent/
+.codex/
+AGENTS.md
+AGENTS.md.backup.*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+
+# Python (helper scripts)
+__pycache__/
+*.pyc
+.venv/
+
+# Editors / misc
+*.swp
+*~

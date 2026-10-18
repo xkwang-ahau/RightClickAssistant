@@ -1,0 +1,25 @@
+{
+  "generator": "scripts/generate_office_templates.py",
+  "versions": {
+    "python-docx": "1.2.0",
+    "python-pptx": "1.0.2",
+    "openpyxl": "3.1.5"
+  },
+  "templates": [
+    {
+      "file": "BlankWord.docx",
+      "bytes": 36557,
+      "sha256": "13c1afa4de0a81987afcf7a696cdbf313403dbb5bdc5f051e1c831ccaff89b85"
+    },
+    {
+      "file": "BlankPowerPoint.pptx",
+      "bytes": 28083,
+      "sha256": "88e92331c5bd79a97ae5e70718ba5953e09f871cb9cea2eb78c91ceb486c6028"
+    },
+    {
+      "file": "BlankExcel.xlsx",
+      "bytes": 4809,
+      "sha256": "89f8b4469fb383230496cbfe103071d5a624b56a74f3a8bd93d2fe76ea81a9da"
+    }
+  ]
+}
