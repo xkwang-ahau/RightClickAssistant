@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FinderRequestModelTests: XCTestCase {
@@ -315,7 +315,7 @@ final class FinderRequestModelTests: XCTestCase {
         let folders = FinderTestFolderPicker([])
         let files = FinderTestFilePicker([])
         let model = makeModel(folders: folders, files: files)
-        model.handleFinderURL(try XCTUnwrap(URL(string: "rightchick://finder?action=unsupported")))
+        model.handleFinderURL(try XCTUnwrap(URL(string: "rightclickassistant://finder?action=unsupported")))
         XCTAssertNotNil(model.finderRequestMessage)
         let message = model.finderRequestMessage
         model.handleFinderURL(try XCTUnwrap(FinderRequest(action: .open, location: nil).url))

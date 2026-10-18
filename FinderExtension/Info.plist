@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleDisplayName</key>
-    <string>右键助手 Finder 菜单</string>
+    <string>RightClickAssistant Finder Menu</string>
     <key>NSExtension</key>
     <dict>
         <key>NSExtensionPointIdentifier</key>

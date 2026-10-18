@@ -9,7 +9,7 @@ nonisolated enum FinderAction: String, CaseIterable, Sendable {
 }
 
 nonisolated struct FinderRequest: Equatable, Sendable {
-    static let scheme = "rightchick"
+    static let scheme = "rightclickassistant"
     let action: FinderAction
     let location: URL?
 

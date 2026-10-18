@@ -20,7 +20,7 @@ from pptx.util import Inches
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "rightchick" / "Resources" / "Templates"
+OUTPUT = ROOT / "RightClickAssistant" / "Resources" / "Templates"
 FIXED_TIME = datetime(2000, 1, 1, tzinfo=timezone.utc)
 
 

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleDisplayName</key>
-    <string>右键助手</string>
+    <string>RightClickAssistant</string>
     <key>LSUIElement</key>
     <true/>
     <key>CFBundleURLTypes</key>
@@ -12,7 +12,7 @@
             <key>CFBundleURLName</key>
             <string>devplaceholder.JW2H7X4Z.RightClickAssistant.finder</string>
             <key>CFBundleURLSchemes</key>
-            <array><string>rightchick</string></array>
+            <array><string>rightclickassistant</string></array>
         </dict>
     </array>
 </dict>

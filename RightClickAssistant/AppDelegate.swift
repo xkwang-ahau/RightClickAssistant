@@ -35,10 +35,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func presentOnboarding() {
         let alert = NSAlert()
-        alert.messageText = "欢迎使用右键助手"
+        alert.messageText = "欢迎使用 RightClickAssistant"
         alert.informativeText = """
         首次使用只需两步：
-        • 在系统设置中启用“右键助手 Finder 菜单”扩展。
+        • 在系统设置中启用“RightClickAssistant Finder Menu”扩展。
         • 当你在桌面、文稿、下载等受保护位置首次新建或移动时，系统可能询问一次“允许访问”，点“允许”即可，之后不再打扰。
 
         其它普通文件夹可直接使用，无需授权。

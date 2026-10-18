@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FileMovementModelTests: XCTestCase {
@@ -98,7 +98,7 @@ final class FileMovementModelTests: XCTestCase {
         model.chooseCreationDirectory()
         model.clearCreationDirectory()
         model.clearMoveDestination()
-        model.handleFinderURL(try XCTUnwrap(URL(string: "rightchick://finder?action=move&path=/test/other")))
+        model.handleFinderURL(try XCTUnwrap(URL(string: "rightclickassistant://finder?action=move&path=/test/other")))
         XCTAssertEqual(model.finderRequestMessage, "当前文件操作尚未完成，请完成后重新点击 Finder 菜单。")
         let request = await mover.request
         XCTAssertEqual(request?.source, source)
@@ -128,7 +128,7 @@ final class FileMovementModelTests: XCTestCase {
         model.clearMoveDestination()
         XCTAssertEqual(model.creationDirectory, URL(fileURLWithPath: "/test/create"))
         XCTAssertEqual(model.moveDestination, destination)
-        model.handleFinderURL(try XCTUnwrap(URL(string: "rightchick://finder?action=word&path=/test/other")))
+        model.handleFinderURL(try XCTUnwrap(URL(string: "rightclickassistant://finder?action=word&path=/test/other")))
         XCTAssertEqual(model.creationDirectory, URL(fileURLWithPath: "/test/create"))
         XCTAssertEqual(model.finderRequestMessage, "当前文件操作尚未完成，请完成后重新点击 Finder 菜单。")
         await model.moveFile()

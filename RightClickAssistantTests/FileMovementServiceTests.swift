@@ -1,7 +1,7 @@
 import Darwin
 import Foundation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FileMovementServiceTests: XCTestCase {
@@ -291,7 +291,7 @@ final class FileMovementServiceTests: XCTestCase {
     }
 
     private func withConflictFixture(_ body: (URL, URL) async throws -> Void) async throws {
-        let root = FileManager.default.temporaryDirectory.appendingPathComponent("rightchick-conflict-\(UUID().uuidString)")
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("RightClickAssistant-conflict-\(UUID().uuidString)")
         let origin = root.appendingPathComponent("origin")
         let target = root.appendingPathComponent("target")
         try FileManager.default.createDirectory(at: origin, withIntermediateDirectories: true)
@@ -306,7 +306,7 @@ final class FileMovementServiceTests: XCTestCase {
     }
 
     private func withFixture(_ body: (URL, URL) async throws -> Void) async throws {
-        let root = FileManager.default.temporaryDirectory.appendingPathComponent("rightchick-move-\(UUID().uuidString)")
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("RightClickAssistant-move-\(UUID().uuidString)")
         let origin = root.appendingPathComponent("origin")
         let target = root.appendingPathComponent("target")
         try FileManager.default.createDirectory(at: origin, withIntermediateDirectories: true)

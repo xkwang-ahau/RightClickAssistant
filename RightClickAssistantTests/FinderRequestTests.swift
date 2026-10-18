@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 final class FinderRequestTests: XCTestCase {
     func testAllActionsRoundTripChineseAndReservedPathCharacters() throws {
@@ -17,16 +17,16 @@ final class FinderRequestTests: XCTestCase {
 
     func testDecoderRejectsAmbiguousMalformedOrUnsupportedRequests() throws {
         let invalid = [
-            "other://finder?action=open", "rightchick://other?action=open",
-            "rightchick://finder/path?action=open", "rightchick://finder?action=open#fragment",
-            "rightchick://user@finder?action=open", "rightchick://finder:12?action=open",
-            "rightchick://finder?action=unknown", "rightchick://finder?action=word",
-            "rightchick://finder?action=word&path=relative", "rightchick://finder?action=move&path=",
-            "rightchick://finder?action=move&path=/test%00file",
-            "rightchick://finder?action=open&path=/test", "rightchick://finder?action=open&extra=1",
-            "rightchick://finder?action=open&action=move", "rightchick://finder?action=open&action=open",
-            "rightchick://finder?action=move&path=/a&path=/b", "rightchick://finder?action",
-            "rightchick://finder", "rightchick://finder?action=move&path",
+            "other://finder?action=open", "rightclickassistant://other?action=open",
+            "rightclickassistant://finder/path?action=open", "rightclickassistant://finder?action=open#fragment",
+            "rightclickassistant://user@finder?action=open", "rightclickassistant://finder:12?action=open",
+            "rightclickassistant://finder?action=unknown", "rightclickassistant://finder?action=word",
+            "rightclickassistant://finder?action=word&path=relative", "rightclickassistant://finder?action=move&path=",
+            "rightclickassistant://finder?action=move&path=/test%00file",
+            "rightclickassistant://finder?action=open&path=/test", "rightclickassistant://finder?action=open&extra=1",
+            "rightclickassistant://finder?action=open&action=move", "rightclickassistant://finder?action=open&action=open",
+            "rightclickassistant://finder?action=move&path=/a&path=/b", "rightclickassistant://finder?action",
+            "rightclickassistant://finder", "rightclickassistant://finder?action=move&path",
         ]
         for string in invalid {
             let url = try XCTUnwrap(URL(string: string))
@@ -44,7 +44,7 @@ final class FinderRequestTests: XCTestCase {
         let longPath = "/" + String(repeating: "a", count: 4096)
         let request = FinderRequest(action: .move, location: URL(fileURLWithPath: longPath))
         XCTAssertNil(request.url)
-        let url = try XCTUnwrap(URL(string: "rightchick://finder?action=move&path=/" + String(repeating: "a", count: 33_000)))
+        let url = try XCTUnwrap(URL(string: "rightclickassistant://finder?action=move&path=/" + String(repeating: "a", count: 33_000)))
         XCTAssertNil(FinderRequest.decode(url))
     }
 

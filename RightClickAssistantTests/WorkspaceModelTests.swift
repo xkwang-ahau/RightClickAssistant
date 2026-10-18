@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class WorkspaceModelTests: XCTestCase {

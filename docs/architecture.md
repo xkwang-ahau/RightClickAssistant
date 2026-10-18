@@ -1,26 +1,26 @@
-# 右键助手：项目结构与开发说明
+# RightClickAssistant：项目结构与开发说明
 
 > **当前交互（2026-10-16）**：应用已移除沙盒、改用“完全磁盘访问”，并改为菜单栏工具（无 Dock、不自动弹窗）。Finder 右键新建在后台直接创建（无需逐目录授权），移动在后台选择目的地后执行。主界面为菜单栏设置面板（扩展状态、完全磁盘访问、最近结果、退出）。下文早期 M1–M4 手动表单操作作为历史开发记录，当前使用以 [Finder 菜单说明](finder-menu.md) 为准。最近 90 项测试通过，详见 `.agent/plans/full-disk-background.md`。
 
 ## 1. 当前项目结构
 
-最初的项目仅有 MyApp.swift、ContentView.swift、Assets.xcassets 和 rightchick.xcodeproj，是显示 Hello world 的多平台模板，没有文件服务或 Finder 扩展。
+最初的项目仅有 MyApp.swift、ContentView.swift、Assets.xcassets 和 RightClickAssistant.xcodeproj，是显示 Hello world 的多平台模板，没有文件服务或 Finder 扩展。
 
 M1 / M2 / M3 / M4 建立的小规模结构如下：
 
 ```text
-rightchick/
+RightClickAssistant/
 ├── AGENTS.md                        开发约束
 ├── .agent/PLANS.md                   计划格式
 ├── .agent/plans/right-click-foundation.md
 ├── .agent/plans/folder-persistence.md  M4 实施与验证记录
 ├── docs/architecture.md             本说明
-├── rightchick.xcodeproj/
+├── RightClickAssistant.xcodeproj/
 │   ├── project.pbxproj               Target、平台、权限与构建设置
 │   └── xcshareddata/xcschemes/        包含测试的共享 Scheme
-├── rightchickTests/                 文件安全与状态测试
+├── RightClickAssistantTests/                 文件安全与状态测试
 ├── scripts/                        模板生成与验证脚本
-└── rightchick/
+└── RightClickAssistant/
     ├── MyApp.swift                  启动入口与状态所有者
     ├── ContentView.swift            主窗口
     ├── Models/DocumentType.swift    Office 文档类型
@@ -33,12 +33,12 @@ rightchick/
     ├── Services/FileOperationService.swift 文件创建与移动
     ├── Services/ExclusiveFileMove.swift 无覆盖重命名
     ├── Services/FolderBookmarkStore.swift 保存与解析安全书签
-    ├── rightchick.entitlements      应用级安全书签权限
+    ├── RightClickAssistant.entitlements      应用级安全书签权限
     ├── Resources/                   Office 空白模板及许可说明
     └── Assets.xcassets/             颜色与图像资源
 ```
 
-当前有 rightchick 应用 Target 和 rightchickTests 单元测试 Target。Xcode 的目录同步分组会自动纳入对应目录中的新增 Swift 文件。
+当前有 RightClickAssistant 应用 Target 和 RightClickAssistantTests 单元测试 Target。Xcode 的目录同步分组会自动纳入对应目录中的新增 Swift 文件。
 
 M5 增加 FinderExtension Target，自动嵌入主 App 的 `Contents/PlugIns`；新增 `Shared/FinderRequest.swift` 同时编译到 App 与扩展。2026-10-16 已扩展到启动磁盘和所有挂载卷，新增 `AuthorizedCreationLocation.swift` 管理父目录授权与子目录目标。启用范围、体验步骤及本机验证见 [Finder 右键菜单试用](finder-menu.md)。
 
@@ -58,8 +58,8 @@ M5 增加 FinderExtension Target，自动嵌入主 App 的 `Contents/PlugIns`；
 | ExclusiveFileMove.swift | 用系统的 renamex_np + RENAME_EXCL 完成同卷无覆盖移动；不复制后删除 |
 | FolderPreference.swift | 区分创建位置与移动目的地，定义恢复结果和中文错误 |
 | FolderBookmarkStore.swift | 用两个版本化 UserDefaults 键保存安全书签；解析、检查目录、刷新过期书签、清除配置 |
-| rightchick.entitlements | 增加 app-scope bookmarks 权限；沙盒与用户选择读写权限仍由构建设置生成 |
-| rightchickTests | 用真实临时目录验证文件安全，用可控假服务验证状态与并发请求 |
+| RightClickAssistant.entitlements | 增加 app-scope bookmarks 权限；沙盒与用户选择读写权限仍由构建设置生成 |
+| RightClickAssistantTests | 用真实临时目录验证文件安全，用可控假服务验证状态与并发请求 |
 | Assets.xcassets | 资源目录，目前只有 AccentColor，尚未设计 App 图标 |
 | project.pbxproj | 记录 macOS Target、最低版本 14.0、沙盒与用户选择文件读写权限 |
 
@@ -127,7 +127,7 @@ M2 修改入口、界面、模型、类型和选择器，新增 FileOperationSer
 
 M3 新增 FileMovement.swift、FilePicker.swift、ExclusiveFileMove.swift、FileMovementServiceTests.swift、FileMovementModelTests.swift；修改 MyApp.swift、ContentView.swift、WorkspaceModel.swift、FileOperationService.swift 和 WorkspaceModelTests.swift 的初始化，以及 ExecPlan 和本说明。没有新增依赖、Target 或权限。
 
-M4 新增 FolderPreference.swift、FolderBookmarkStore.swift、rightchick.entitlements、FolderBookmarkStoreTests.swift 和 FolderPersistenceModelTests.swift；修改入口、模型、界面、项目签名设置和移动模型互斥测试。新计划位于 `.agent/plans/folder-persistence.md`，不新增依赖或 Target。
+M4 新增 FolderPreference.swift、FolderBookmarkStore.swift、RightClickAssistant.entitlements、FolderBookmarkStoreTests.swift 和 FolderPersistenceModelTests.swift；修改入口、模型、界面、项目签名设置和移动模型互斥测试。新计划位于 `.agent/plans/folder-persistence.md`，不新增依赖或 Target。
 
 暂时不创建数据库、登录项、后台进程或第三方依赖。
 
@@ -159,9 +159,9 @@ M4 新增 FolderPreference.swift、FolderBookmarkStore.swift、rightchick.entitl
 
 ## 如何运行和检查本轮结果
 
-在 Xcode 打开 rightchick.xcodeproj，选择 rightchick scheme、My Mac，点击 Run（Command-R）。
+在 Xcode 打开 RightClickAssistant.xcodeproj，选择 RightClickAssistant scheme、My Mac，点击 Run（Command-R）。
 
-1. 检查出现“右键助手”窗口。
+1. 检查出现“RightClickAssistant”窗口。
 2. 输入“会议记录”，切换 Word / PowerPoint / Excel，查看 `.docx/.pptx/.xlsx` 名称预览。
 3. 分别选择创建位置和移动目的地，检查它们独立更新。
 4. 已经选好目录后点“更换”，再取消，检查原选择保留。
@@ -193,6 +193,6 @@ M3 独立 Debug 沙盒 App 编译成功；45 个 XCTest 全部通过（22 项创
 - 最终 60 项 XCTest 通过，0 失败、0 跳过、无 runtimeWarnings：原有 45 项回归、10 项书签服务测试、5 项目录状态测试。
 - 真实临时目录验证安全书签往返、删除后失效、普通文件拒绝、恢复后的三个 Office 文件创建及移动。隔离 UserDefaults suite 与系统边界替身覆盖损坏数据、独立清除、stale 更新、更新失败、保存失败和安全访问配对；已有互斥测试增加操作期间禁止清除的断言。
 - 未出现 Swift 源码编译警告；项目与 entitlements 格式检查通过，已按原有四空格和补丁逐文件复核修改。
-- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m4-final-tests.xcresult`。
-- 已在独立 DerivedData 构建普通 App，产物：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-m4-app-derived/Build/Products/Debug/rightchick.app`，无构建警告，签名权限复核通过。
+- 测试结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m4-final-tests.xcresult`。
+- 已在独立 DerivedData 构建普通 App，产物：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/RightClickAssistant-m4-app-derived/Build/Products/Debug/RightClickAssistant.app`，无构建警告，签名权限复核通过。
 - 本会话没有桌面操作工具。测试宿主中的临时目录验证不等同于真实 NSOpenPanel 外部目录授权，普通 App 退出/重启后外部目录 IO 尚未人工验收，请按上面的第 9–11 步检查。

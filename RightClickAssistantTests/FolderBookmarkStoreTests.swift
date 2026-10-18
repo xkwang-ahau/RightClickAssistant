@@ -1,11 +1,11 @@
 import Foundation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FolderBookmarkStoreTests: XCTestCase {
     func testRestoredMoveDestinationIsUsableByCreationAndMovementServices() async throws {
-        let suite = "rightchick.nested-bookmark-tests.\(UUID().uuidString)"
+        let suite = "RightClickAssistant.nested-bookmark-tests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -31,7 +31,7 @@ final class FolderBookmarkStoreTests: XCTestCase {
     }
 
     func testRestoredURLsCanBeUsedByExistingCreationAndMovementServices() async throws {
-        let suite = "rightchick.bookmark-io-tests.\(UUID().uuidString)"
+        let suite = "RightClickAssistant.bookmark-io-tests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -200,7 +200,7 @@ final class FolderBookmarkStoreTests: XCTestCase {
     }
 
     private func withDefaults(_ body: (UserDefaults) throws -> Void) throws {
-        let suite = "rightchick.bookmark-tests.\(UUID().uuidString)"
+        let suite = "RightClickAssistant.bookmark-tests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         try body(defaults)

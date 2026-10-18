@@ -1,6 +1,6 @@
 import AppKit
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FinderMenuRequestsTests: XCTestCase {

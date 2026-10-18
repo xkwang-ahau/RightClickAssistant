@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import rightchick
+@testable import RightClickAssistant
 
 @MainActor
 final class FileOperationServiceTests: XCTestCase {
@@ -264,7 +264,7 @@ final class FileOperationServiceTests: XCTestCase {
 
     private func withTemporaryDirectory(_ body: (URL) async throws -> Void) async throws {
         let directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("rightchick-test-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("RightClickAssistant-test-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
         defer {
             do {

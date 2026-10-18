@@ -56,7 +56,7 @@ def verify_package(path, record):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--directory", type=Path, default=ROOT / "rightchick" / "Resources" / "Templates")
+    parser.add_argument("--directory", type=Path, default=ROOT / "RightClickAssistant" / "Resources" / "Templates")
     args = parser.parse_args()
     manifest = json.loads((ROOT / "docs" / "office-template-manifest.json").read_text())
     for record in manifest["templates"]:

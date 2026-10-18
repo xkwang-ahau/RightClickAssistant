@@ -1,10 +1,10 @@
-# 右键助手（RightClickAssistant）
+# RightClickAssistant
 
 一个 macOS 菜单栏小工具 + Finder 扩展：在 Finder 里右键即可新建 Word / PowerPoint / Excel 空白文档，或把文件移动到指定文件夹。所有操作默认**绝不覆盖**已有文件。
 
 ## 功能
 
-- **右键新建文档**：在任意普通文件夹空白处右键 →「右键助手」→ 新建 Word / PowerPoint / Excel 文档。后台直接创建，不弹主界面；同名文件自动编号为「新建 Word 文档 (2).docx」。
+- **右键新建文档**：在任意普通文件夹空白处右键 →「RightClickAssistant」→ 新建 Word / PowerPoint / Excel 文档。后台直接创建，不弹主界面；同名文件自动编号为「新建 Word 文档 (2).docx」。
 - **右键移动文件**：单个普通文件右键 →「移动此文件…」，选择目的地后后台移动。
 - **同名冲突处理**：目的地已有同名文件时提供「保留两者 / 替换 / 取消」，默认保留两者，只有明确选择「替换」才会覆盖。
 - **菜单栏面板**：查看 Finder 扩展启用状态、管理文件夹授权、查看最近一次操作结果并在 Finder 中显示。
@@ -20,8 +20,8 @@
 ## 项目结构
 
 ```text
-rightchick/
-├── rightchick/              主 App（SwiftUI + AppKit，菜单栏工具）
+RightClickAssistant/
+├── RightClickAssistant/              主 App（SwiftUI + AppKit，菜单栏工具）
 │   ├── MyApp.swift          菜单栏入口
 │   ├── AppDelegate.swift    状态所有者与扩展管理
 │   ├── ContentView.swift    设置面板
@@ -31,7 +31,7 @@ rightchick/
 │   └── Resources/Templates/ 三种空白 OOXML 模板
 ├── FinderExtension/         Finder Sync 扩展（右键菜单入口）
 ├── Shared/                  主 App 与扩展共享的请求传递类型
-├── rightchickTests/         单元测试
+├── RightClickAssistantTests/         单元测试
 ├── scripts/                 模板生成与验证脚本
 └── docs/                    架构说明与使用记录
 ```
@@ -40,31 +40,31 @@ rightchick/
 
 ## 构建与运行
 
-1. 用 Xcode 打开 `rightchick.xcodeproj`。
-2. 选择 `rightchick` scheme 与 `My Mac`，按 `⌘R` 运行。Finder 扩展会作为内嵌 appex 自动构建。
-3. 首次运行时，在菜单栏面板点击「管理 Finder 扩展…」，在系统设置中启用「右键助手 Finder 菜单」。
-4. 在 Finder 中打开任意普通文件夹，右键即可看到「右键助手」。
+1. 用 Xcode 打开 `RightClickAssistant.xcodeproj`。
+2. 选择 `RightClickAssistant` scheme 与 `My Mac`，按 `⌘R` 运行。Finder 扩展会作为内嵌 appex 自动构建。
+3. 首次运行时，在菜单栏面板点击「管理 Finder 扩展…」，在系统设置中启用「RightClickAssistant Finder Menu」。
+4. 在 Finder 中打开任意普通文件夹，右键即可看到「RightClickAssistant」。
 
 > 首次访问桌面、文稿、下载或外接盘时，macOS 会弹出一次「文件与文件夹」授权提示，允许后不再打扰。系统保护目录和只读磁盘仍不可写。
 
 ## 测试
 
-在 Xcode 中按 `⌘U`。`rightchickTests` 共 97 个测试方法，覆盖文档创建、无覆盖移动、冲突处理、安全书签往返、菜单请求解析与并发互斥。测试只使用临时目录，不会触碰用户已有文档。
+在 Xcode 中按 `⌘U`。`RightClickAssistantTests` 共 97 个测试方法，覆盖文档创建、无覆盖移动、冲突处理、安全书签往返、菜单请求解析与并发互斥。测试只使用临时目录，不会触碰用户已有文档。
 
 ```sh
-xcodebuild test -project rightchick.xcodeproj -scheme rightchick -destination 'platform=macOS'
+xcodebuild test -project RightClickAssistant.xcodeproj -scheme RightClickAssistant -destination 'platform=macOS'
 ```
 
 ## Office 空白模板
 
-`rightchick/Resources/Templates/` 下的 `.docx / .pptx / .xlsx` 由脚本生成并校验，App 运行时只复制资源：
+`RightClickAssistant/Resources/Templates/` 下的 `.docx / .pptx / .xlsx` 由脚本生成并校验，App 运行时只复制资源：
 
 ```sh
 python3 scripts/generate_office_templates.py   # 需要 python-docx / python-pptx / openpyxl
 python3 scripts/verify_office_templates.py
 ```
 
-生成库（MIT 许可）仅在构建模板时使用，不会打包进 App；相关版权说明见 `rightchick/Resources/OfficeTemplateLicenses.txt`。
+生成库（MIT 许可）仅在构建模板时使用，不会打包进 App；相关版权说明见 `RightClickAssistant/Resources/OfficeTemplateLicenses.txt`。
 
 ## 已知限制
 
@@ -79,4 +79,4 @@ python3 scripts/verify_office_templates.py
 
 ## 第三方许可
 
-Office 模板由 python-docx、python-pptx、openpyxl 生成，三者均为 MIT 许可。完整声明见 `rightchick/Resources/OfficeTemplateLicenses.txt`。
+Office 模板由 python-docx、python-pptx、openpyxl 生成，三者均为 MIT 许可。完整声明见 `RightClickAssistant/Resources/OfficeTemplateLicenses.txt`。
