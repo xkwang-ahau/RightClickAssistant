@@ -5,10 +5,17 @@ import OSLog
 final class FinderSync: FIFinderSync {
     private let logger = Logger(subsystem: "devplaceholder.JW2H7X4Z.RightClickAssistant.FinderExtension", category: "FinderMenu")
     private var requests = FinderMenuRequests()
+    private let scopeCache = FinderScopeCache()
+    /// 已交给 Finder 的范围。重复赋值会让 Finder 重新加载扩展，因此只在真的变化时写回。
+    private var appliedScope: Set<URL> = []
+    private var pendingScopeRefresh: Task<Void, Never>?
 
     override init() {
         super.init()
-        refreshDirectories()
+        // 启动路径上不做磁盘枚举：先用上次范围（或仅启动磁盘根）建立监控，
+        // 真正的卷枚举放到后台任务里完成，菜单可用性不受影响。
+        apply(FinderMenuScope.directories(fromCachedPaths: scopeCache.load()), reason: "bootstrap")
+        scheduleScopeRefresh(after: .zero, reason: "startup")
         for name in [NSWorkspace.didMountNotification, NSWorkspace.didUnmountNotification, NSWorkspace.didRenameVolumeNotification] {
             NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(volumesChanged(_:)), name: name, object: nil)
         }
@@ -20,15 +27,41 @@ final class FinderSync: FIFinderSync {
     }
 
     @objc private func volumesChanged(_ notification: Notification) {
-        refreshDirectories()
+        // 插拔一次磁盘常连发多条挂载/卸载通知，去抖后只刷新一次。
+        scheduleScopeRefresh(after: .milliseconds(500), reason: "volumeChange")
     }
 
-    private func refreshDirectories() {
-        let volumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])
-        if volumes == nil { logger.error("Unable to enumerate mounted volumes; retaining root coverage") }
-        let directories = FinderMenuScope.directories(mountedVolumes: volumes ?? [])
-        FIFinderSyncController.default().directoryURLs = directories
-        logger.notice("Finder menu scope updated, volume roots: \(directories.count)")
+    private func scheduleScopeRefresh(after delay: Duration, reason: String) {
+        pendingScopeRefresh?.cancel()
+        pendingScopeRefresh = Task { [weak self] in
+            if delay > .zero { try? await Task.sleep(for: delay) }
+            guard !Task.isCancelled else { return }
+            let scope = await Self.enumeratedScope()
+            guard !Task.isCancelled else { return }
+            self?.apply(scope, reason: reason)
+        }
+    }
+
+    /// 在后台线程枚举挂载卷；回到调用方（主 actor）后才会写回 Finder。
+    /// 只取可浏览卷，系统卷（Recovery、Preboot 等）与应用临时挂载点直接不参与比较。
+    private nonisolated static func enumeratedScope() async -> Set<URL> {
+        let volumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [.skipHiddenVolumes])
+        if volumes == nil {
+            Logger(subsystem: "devplaceholder.JW2H7X4Z.RightClickAssistant.FinderExtension", category: "FinderMenu")
+                .error("Unable to enumerate mounted volumes; retaining current coverage")
+        }
+        return FinderMenuScope.directories(mountedVolumes: volumes ?? [])
+    }
+
+    private func apply(_ scope: Set<URL>, reason: String) {
+        guard scope != appliedScope else {
+            logger.debug("Finder menu scope unchanged, \(scope.count, privacy: .public) roots kept (\(reason, privacy: .public))")
+            return
+        }
+        appliedScope = scope
+        FIFinderSyncController.default().directoryURLs = scope
+        scopeCache.save(FinderMenuScope.cachedPaths(of: scope))
+        logger.notice("Finder menu scope updated, \(scope.count, privacy: .public) roots (\(reason, privacy: .public))")
     }
 
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {

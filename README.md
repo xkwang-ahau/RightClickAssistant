@@ -51,7 +51,7 @@ RightClickAssistant/
 
 ## 测试
 
-在 Xcode 中按 `⌘U`。`RightClickAssistantTests` 共 97 个测试方法，覆盖文档创建、无覆盖移动、冲突处理、安全书签往返、菜单请求解析与并发互斥。测试只使用临时目录，不会触碰用户已有文档。
+在 Xcode 中按 `⌘U`。`RightClickAssistantTests` 共 103 个测试方法，覆盖文档创建、无覆盖移动、冲突处理、安全书签往返、菜单请求解析与并发互斥。测试只使用临时目录，不会触碰用户已有文档。
 
 ```sh
 xcodebuild test -project RightClickAssistant.xcodeproj -scheme RightClickAssistant -destination 'platform=macOS'

@@ -47,14 +47,3 @@ nonisolated struct FinderRequest: Equatable, Sendable {
         return Self(action: action, location: URL(fileURLWithPath: path))
     }
 }
-
-nonisolated enum FinderMenuScope {
-    static func directories(mountedVolumes: [URL]) -> Set<URL> {
-        // 明确注册卷根，避免依赖 Finder 是否跨挂载点传播根目录的监控。
-        var roots = Set([URL(fileURLWithPath: "/", isDirectory: true)])
-        for volume in mountedVolumes where volume.isFileURL && !volume.path(percentEncoded: true).contains("%00") {
-            roots.insert(volume.standardizedFileURL)
-        }
-        return roots
-    }
-}

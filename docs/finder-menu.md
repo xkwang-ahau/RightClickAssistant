@@ -112,3 +112,19 @@ pluginkit -e ignore -i devplaceholder.JW2H7X4Z.RightClickAssistant.FinderExtensi
 主窗口只保留扩展启用状态、文件夹授权（选择/更换/清除），以及按需显示的最近结果和“在 Finder 中显示”。新建类型、名称输入、预览、源文件及移动按钮表单已移除。文件移动也能由菜单和系统选择窗口完整完成。关闭设置窗口不会取消已发起的菜单文件操作。
 
 最终 **96 项测试通过**，0 失败、0 跳过、无 runtimeWarnings；包括菜单移动成功、两个选择窗口取消、重复/嵌套请求、失败、排队取消、实际临时文件无按钮移动和结果链接更新。构建与深度签名通过，已打开新版 App。结果：`/var/folders/2m/wsdtb63j6hl_24pwvwnbjp980000gn/T/opencode/rightchick-compact-final-tests.xcresult`。紧凑布局与真实 NSOpenPanel 移动流程仍需人工体验验收。
+
+## 后台反复重载修正（2026-10-23）
+
+现象与定位：本机 `Finder` 常驻属正常（系统 LaunchAgent，累计 CPU 约 17 分钟 / 7 天），但扩展日志显示 `FinderExtension` 每 20–30 分钟被系统加载并退出一次（`exit(0)`，非崩溃，崩溃报告为空）。原因有两层：
+
+- 每次进程启动都在 `init` 里同步枚举全部挂载卷，再赋值 `directoryURLs`；启动路径上相当于一次磁盘 I/O 加一次 Finder 侧重新协商。
+- 旧范围把系统卷和临时挂载点也登记进去（实测 19 个根）：`/System/Volumes/{Preboot,VM,Update,xarts,iSCPreboot,Hardware,Data/home}`、`/Volumes/Recovery`、`/private/var/folders/.../T/*`（7 个）、`/private/tmp/astris_mnt`、`~/Library/Developer/CoreDevice/DeviceFS`。这些挂载点随应用和系统临时挂载出现/消失，导致范围集合反复变化，每次变化都会重新赋值并触发 Finder 重载扩展。
+
+修改：
+
+- `FinderMenuScope` 移到 `Shared/FinderMenuScope.swift`，只登记用户在 Finder 里能点到的卷根：`/Volumes/<名称>`、`/Network/<名称>`，跳过点号开头的快照卷和 `/Volumes` 下的深层挂载；`/` 永远在范围内。枚举改用 `.skipHiddenVolumes`，本机范围从 19 个根收敛到 1 个（`/`）。
+- 启动不再同步枚举：先用上次范围（`FinderScopeCache`，存于扩展自身 UserDefaults）建立监控，再在后台任务里枚举并比较。范围未变化时不写 `directoryURLs`，避免触发重新加载。
+- 挂载/卸载/卷重命名通知去抖 500 ms，一次插拔只刷新一次；卷枚举在 `nonisolated async` 中执行（脱离主 actor），写回仍在主线程。
+- 缓存路径经过同一套可用性过滤，旧版本留下的噪声路径会在下次启动被自动剔除。
+
+验证：`xcodebuild test` **103 项通过，0 失败**，无编译警告（仅 AppIntents 元数据提示，属既有噪声）。已重建并覆盖 `/Applications/右键助手.app`（备份在 `/var/tmp/rightclick-backup/右键助手.app`），重新注册并启用扩展、重启 Finder 后：扩展只剩单一进程，日志记录 `Finder menu scope updated, 1 roots (bootstrap)`，`FinderMenuScope.roots` 缓存为 `["/"]`，随后的启动刷新因范围一致而跳过赋值。菜单的实际点选仍依赖人工验收。
